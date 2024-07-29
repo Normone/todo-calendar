@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { ThemeContext } from '../../entities';
-import { Button } from '../..'; 
+import { Button, Text } from '../../';
 import './TodoList.css';
 
 
-export const TodoList = ({ date, tasks, addTask, updateTasks }) => {
+export const TodoList = ({ date, tasks, addTask, updateTasks, className=''}) => {
+    const { theme, dispatch } = useContext(ThemeContext);
     // Состояние для хранения новой задачи, которую пользователь хочет добавить
     const [newTask, setNewTask] = useState('');
 
@@ -37,39 +38,39 @@ export const TodoList = ({ date, tasks, addTask, updateTasks }) => {
     }, 0);
 
     return (
-        <div>
-        {/* Заголовок с отображением выбранной даты */}
-        <h2>{date.toLocaleDateString()}</h2>
+        <div className={`todoList ${theme} ${className}`} >
+            {/* Заголовок с отображением выбранной даты */}
+            <Text>{date.toLocaleDateString()}</Text>
 
-        {/* Поле ввода для добавления новой задачи */}
-        <input
-            type="text"
-            value={newTask}
-            onChange={(e) => setNewTask(e.target.value)} // Обновляем состояние при вводе
-        />
-        {/* Кнопка для добавления задачи */}
-        <button onClick={handleAddTask}>Add Task</button>
+            {/* Поле ввода для добавления новой задачи */}
+            <input
+                type="text"
+                value={newTask}
+                onChange={(e) => setNewTask(e.target.value)} // Обновляем состояние при вводе
+            />
+            {/* Кнопка для добавления задачи */}
+            <Button onClick={handleAddTask}>Add Task</Button>
 
-        {/* Список задач, отображаемый на основе переданных props */}
-        <ul>
-            {tasks.map((task, index) => (
-            <li
-                key={index}
-                style={{
-                textDecoration: task.completed ? 'line-through' : 'none', // Зачеркиваем выполненные задачи
-                color: task.completed ? 'gray' : 'inherit', // Меняем цвет выполненных задач
-                }}
-            >
-                {task.title} ({task.points} points)
-                <button onClick={() => toggleTaskCompletion(index)}>
-                {task.completed ? 'Отменить' : 'Выполнено'}
-                </button>
-            </li>
-            ))}
-        </ul>
+            {/* Список задач, отображаемый на основе переданных props */}
+            <ul>
+                {tasks.map((task, index) => (
+                <li
+                    key={index}
+                    style={{
+                    textDecoration: task.completed ? 'line-through' : 'none', // Зачеркиваем выполненные задачи
+                    color: task.completed ? 'gray' : 'inherit', // Меняем цвет выполненных задач
+                    }}
+                >
+                    {task.title} ({task.points} points)
+                    <Button onClick={() => toggleTaskCompletion(index)}>
+                        {task.completed ? 'Отменить' : 'Выполнено'}
+                    </Button>
+                </li>
+                ))}
+            </ul>
 
-        {/* Отображение общего количества баллов за день */}
-        <p>Total points for the day: {totalPoints}</p>
+            {/* Отображение общего количества баллов за день */}
+            <Text>Total points for the day: {totalPoints}</Text>
         </div>
     );
     }
