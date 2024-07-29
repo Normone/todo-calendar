@@ -118,6 +118,7 @@ function App() {
     return totalPoints;
   }
 
+
   // Получаем задачи для выбранной даты
   const tasksForSelectedDate = tasksPerDay[selectedDate.toDateString()] || [];
   
@@ -126,8 +127,11 @@ function App() {
     <>
       <ThemeProvider>
         <Wrapper>
-          {/* Отображаем календарь и передаем обработчик onDateChange */}
-          <Calendar onChange={onDateChange} value={selectedDate} />
+          <div >
+            {/* Отображаем календарь и передаем обработчик onDateChange */}
+            <Calendar onChange={onDateChange} value={selectedDate} />
+            <Text>Очков всего: {calcPoints()}</Text>
+          </div>
           
           {/* Отображаем список задач и передаем выбранную дату, задачи для этой даты и функцию для добавления задачи */}
           <TodoList
@@ -136,9 +140,6 @@ function App() {
             addTask={addTaskForDate}
             updateTasks={updateTasksForDate}
           />
-          <Text>Очков всего: {calcPoints()}</Text>
-          <Text>Очков всего: {calcPoints()}</Text>
-          <Text>Очков всего: {calcPoints()}</Text>
         </Wrapper>
       </ThemeProvider>
     </>

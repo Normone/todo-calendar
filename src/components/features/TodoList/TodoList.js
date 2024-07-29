@@ -1,11 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { ThemeContext } from '../../entities';
 import { Button, Text } from '../../';
 import './TodoList.css';
 
 
 export const TodoList = ({ date, tasks, addTask, updateTasks, className=''}) => {
+
+    const scrollableRef = useRef(null);
     const { theme, dispatch } = useContext(ThemeContext);
+
     // Состояние для хранения новой задачи, которую пользователь хочет добавить
     const [newTask, setNewTask] = useState('');
 
@@ -17,6 +20,13 @@ export const TodoList = ({ date, tasks, addTask, updateTasks, className=''}) => 
         addTask({ title: newTask, points: 10, completed: false });
         // Очищаем поле ввода после добавления задачи
         setNewTask('');
+        }
+        if (scrollableRef.current) {
+            setTimeout(() => {
+                // scrollableRef.current.scrollTo(0, scrollableRef.current.scrollHeight);
+                scrollableRef.current.lastChild.scrollIntoView(true)
+            }, 50);
+            
         }
     };
 
@@ -52,7 +62,7 @@ export const TodoList = ({ date, tasks, addTask, updateTasks, className=''}) => 
             <Button onClick={handleAddTask}>Add Task</Button>
 
             {/* Список задач, отображаемый на основе переданных props */}
-            <ul>
+            <ul ref={scrollableRef}>
                 {tasks.map((task, index) => (
                 <li
                     key={index}
@@ -61,7 +71,8 @@ export const TodoList = ({ date, tasks, addTask, updateTasks, className=''}) => 
                     color: task.completed ? 'white' : 'inherit', // Меняем цвет выполненных задач
                     }}
                 >
-                    <Text>{task.title} ({task.points} points)</Text>
+                    <Text className='points'>({task.points})</Text>
+                    <Text className='title'>{task.title}</Text>
                     <Button onClick={() => toggleTaskCompletion(index)}>
                         {task.completed ? 'Отменить' : 'Выполнено'}
                     </Button>
