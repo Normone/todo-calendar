@@ -58,10 +58,10 @@ export const TodoList = ({ date, tasks, addTask, updateTasks, className=''}) => 
                     key={index}
                     style={{
                     textDecoration: task.completed ? 'line-through' : 'none', // Зачеркиваем выполненные задачи
-                    color: task.completed ? 'gray' : 'inherit', // Меняем цвет выполненных задач
+                    color: task.completed ? 'white' : 'inherit', // Меняем цвет выполненных задач
                     }}
                 >
-                    {task.title} ({task.points} points)
+                    <Text>{task.title} ({task.points} points)</Text>
                     <Button onClick={() => toggleTaskCompletion(index)}>
                         {task.completed ? 'Отменить' : 'Выполнено'}
                     </Button>

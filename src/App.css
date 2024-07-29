@@ -1,7 +1,43 @@
+::-webkit-scrollbar {
+    width: 7.5px;
+    height: 7.5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #646464;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #505050;
+    border-radius: 15px;
+}
+::-webkit-scrollbar-track {
+    background-color: #8f8f8f;
+    border-radius: 15px;
+}
+
 .react-calendar {
     width: 200px;
 }
-
+.react-calendar__navigation {
+    display: flex;
+    gap: 2px;
+}
 .react-calendar__tile--active {
     background-color: #939393;
+}
+.react-calendar__month-view__days {
+}
+.react-calendar__month-view__days__day {
+    padding: 3px;
+    border: 1px solid white;
+}
+.react-calendar__month-view__weekdays {
+    
+}
+.react-calendar__month-view__weekdays__weekday {
+    color: white;
+    text-decoration: none!important;
+}
+.react-calendar__month-view__weekdays__weekday--current {
+    background-color: #c0c0c0;
 }

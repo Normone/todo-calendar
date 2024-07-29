@@ -1,0 +1,20 @@
+.todoList {
+    max-height: 100vh;
+}
+.todoList ul {
+    max-height: 85vh;
+    overflow-y: scroll;
+}
+.todoList li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #6b6b6b;
+}
+.todoList li p {
+    width: 70%;
+}
+.todoList li button {
+    width: 28%;
+}

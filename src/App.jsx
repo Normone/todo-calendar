@@ -98,16 +98,32 @@ function App() {
   };
 
   // Функция подсчёта накопленных очков
-  // const calcPoints = (tasks) {
+  const calcPoints = () => {
+    let totalPoints = 0;
 
-  // }
+    if (localStorage.getItem('tasks')) {
+      const tasksPerDay = JSON.parse(localStorage.getItem('tasks'));
+  
+      // Проходимся по каждому дню и каждой задаче
+      for (const date in tasksPerDay) {
+        const tasks = tasksPerDay[date];
+        tasks.forEach(task => {
+          if (task.completed) {
+            totalPoints += task.points;
+          }
+        });
+      }
+    }
+  
+    return totalPoints;
+  }
 
   // Получаем задачи для выбранной даты
   const tasksForSelectedDate = tasksPerDay[selectedDate.toDateString()] || [];
   
 
   return (
-    <div>
+    <>
       <ThemeProvider>
         <Wrapper>
           {/* Отображаем календарь и передаем обработчик onDateChange */}
@@ -120,9 +136,12 @@ function App() {
             addTask={addTaskForDate}
             updateTasks={updateTasksForDate}
           />
+          <Text>Очков всего: {calcPoints()}</Text>
+          <Text>Очков всего: {calcPoints()}</Text>
+          <Text>Очков всего: {calcPoints()}</Text>
         </Wrapper>
       </ThemeProvider>
-    </div>
+    </>
   );
 }
 
